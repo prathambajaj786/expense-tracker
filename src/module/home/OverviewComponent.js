@@ -42,9 +42,11 @@ display:flex;
 flex-direction:column;
 border:1px solid #6e8e9;
 gap:10px;
+width:100%;
+
 
 padding:15px 20px;
-margin:10px 20px;
+margin:20px;
 
 & input {
     outline:none;
@@ -62,15 +64,22 @@ align-item:center;
 `
 ;
 const AddTransactionView = ( ) =>{
+    const[amount,setAmount]=useState();
+    const[desp,setDesp]=useState();
+    const[type,setType]=useState("EXPENSE");
     return(
         <AddTransactionCointer>
-            <input placeholder="Amount"/>
-            <input placeholder="description" />
+            <input placeholder="Amount"
+            value={amount} onChange={(e)=>setAmount(e.target.value)}/>
+            <input placeholder="description" 
+            value={desp} onChange={(e)=>setDesp(e.target.value)}/>
             <RadioBox> 
                 
-            <input type="radio" id="expense" name="type" value="EXPENSE " />
+            <input type="radio" id="expense" name="type" value="EXPENSE " checked={type==="INCOME"}
+        onChange= {(e)=>setType(e.target.value)  }/>
                 <label htmlFor="expense">Expense</label>
-            <input type="radio" id="income" name="type" value="INCOME " />
+            <input type="radio" id="income" name="type" value="INCOME " checked={type==="INCOME"}
+            onChange= {(e)=>setType(e.target.value)  } />
                 <label htmlFor="income">Income</label>
             </RadioBox>
             <AddTransaction>ADD Transaction</AddTransaction>
@@ -83,11 +92,11 @@ const AddTransactionView = ( ) =>{
 
 
 const OverviewComponent = (props) => {
-    const[isAddTxnvisible,toggleAddTxn] = useState(true);
+    const[isAddTxnvisible,toggleAddTxn] = useState(false);
     return <Container>
         <BalancedBox>
             Balance:$10000
-            <AddTransaction>{isAddTxnvisible ? "cancle": "ADD"}</AddTransaction>
+            <AddTransaction onClick={()=>toggleAddTxn(!isAddTxnvisible)}>{isAddTxnvisible ? "cancle": "ADD"}</AddTransaction>
             
     
         </BalancedBox>

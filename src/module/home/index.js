@@ -8,6 +8,7 @@ display:flex;
 flex-direction: column; 
 align-items:center;
 font-family:Montsrreat;
+width:360px;
 `;
 
 
