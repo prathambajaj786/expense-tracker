@@ -63,26 +63,42 @@ width:100%;
 align-item:center;
 `
 ;
-const AddTransactionView = ( ) =>{
+const AddTransactionView = (props ) =>{
     const[amount,setAmount]=useState();
     const[desp,setDesp]=useState();
     const[type,setType]=useState("EXPENSE");
+    const addTransaction = () =>{
+        console.log({amount,desp,type}); 
+        props.toggleAddTxn();
+
+    };
     return(
         <AddTransactionCointer>
             <input placeholder="Amount"
             value={amount} onChange={(e)=>setAmount(e.target.value)}/>
             <input placeholder="description" 
             value={desp} onChange={(e)=>setDesp(e.target.value)}/>
-            <RadioBox> 
-                
-            <input type="radio" id="expense" name="type" value="EXPENSE " checked={type==="INCOME"}
-        onChange= {(e)=>setType(e.target.value)  }/>
-                <label htmlFor="expense">Expense</label>
-            <input type="radio" id="income" name="type" value="INCOME " checked={type==="INCOME"}
-            onChange= {(e)=>setType(e.target.value)  } />
-                <label htmlFor="income">Income</label>
-            </RadioBox>
-            <AddTransaction>ADD Transaction</AddTransaction>
+             <RadioBox>
+        <input
+          type="radio"
+          id="expense"
+          name="type"
+          value="EXPENSE"
+          checked={type === "EXPENSE"}
+          onChange={(e) => setType(e.target.value)}
+        />
+        <label htmlFor="expense">Expense</label>
+        <input
+          type="radio"
+          id="income"
+          name="type"
+          value="INCOME"
+          checked={type === "INCOME"}
+          onChange={(e) => setType(e.target.value)}
+        />
+        <label htmlFor="Expense">Income</label>
+      </RadioBox>
+            <AddTransaction onClick ={addTransaction} >ADD Transaction</AddTransaction>
         </AddTransactionCointer>
     )
 
@@ -100,7 +116,7 @@ const OverviewComponent = (props) => {
             
     
         </BalancedBox>
-        {isAddTxnvisible && <AddTransactionView/>}
+        {isAddTxnvisible && <AddTransactionView toggleAddTxn={toggleAddTxn} addTransaction={props.addTransaction}/>}
         
         
     </Container>;
